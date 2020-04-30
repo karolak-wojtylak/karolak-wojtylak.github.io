@@ -1,9 +1,21 @@
+<meta charset="UTF-8">
+<html>
 
- <html>
-    <body>
-        <video id="video" controls preload="metadata">
-            <source src="https://vwaw666.cda.pl/4rD_VBJUYYAfPoWvzKewiA/1588293418/hdf068543f0451d3705e824cbff571e468e942168dff47d05ff5aafb2023da116e.mp4" type="video/mp4">
-            <track label="Polish" kind="subtitles" srclang="pl" src="/napisy.vtt" default>
-        </video>
-    </body>
- </html>
+<head>
+    <script>
+        window.onload = function () {
+            document.getElementById("video").requestFullscreen();
+        }
+    </script>
+</head>
+
+<body>
+    <video id="video" controls preload="metadata">
+        <source
+            src="https://vwaw666.cda.pl/4rD_VBJUYYAfPoWvzKewiA/1588293418/hdf068543f0451d3705e824cbff571e468e942168dff47d05ff5aafb2023da116e.mp4"
+            type="video/mp4">
+        <track label="Polish" kind="subtitles" srclang="pl" src="/napisy.vtt" default>
+    </video>
+</body>
+
+</html>
