@@ -6,7 +6,7 @@
     <script>
 
         async function getVideo(video_id) {
-            link = `https://cors.io/?https://www.cda.pl/video/${video_id}`;
+            link = `https://cors-anywhere.herokuapp.com/https://www.cda.pl/video/${video_id}`;
             response = await fetch(link, {
                 // "credentials": "include",
                 // "headers": {
@@ -19,7 +19,7 @@
                 // "referrer": `https://www.cda.pl/video/${video_id}?wersja=1080p`,
                 // "body": "{\"jsonrpc\":\"2.0\",\"method\":\"videoAsyncDesc\",\"params\":[[147453,203339,6543,3870862,144107,1065285,1327836,2274972,1535040,964470,2161880,2548794,64613,3508,4948,10060,21442,25222,62424,90960,3389332,2223248,3330625,3249322],{}],\"id\":1}",
                 // "method": "GET",
-                // "mode": "no-cors"
+                "mode": "cors"
                 // "Origin": "https://www.cda.pl/"
             });
 
@@ -32,6 +32,7 @@
             // console.log(html)
 
             html = await response.text();
+            console.log(html);
             // html = '71e1%3Fwersja%3D1080p&u_g=m&u_a=18&ts=1588356837","repeat":1,"time":-1,"type":"pool","displayAs":"postrol","safe":false}]},"video":{"id":"5096971e1","file":"GH2Hea_%5Db452%5DA%3D%5E%28_BJ%2A5I%2Bd__c%3C%22%60%27C0xa0%22%5E%60dggc___bf%5E957_egdcb7_cd%605bf_d6gac4377df%606ceg6hca%60eg577cf5_d77d2273a_ab52%60%60e6_Q5","file_cast":null,"cast_available":true,"manifest":null,"manifest_drm_proxy":null,"manifest_';
             const regex = /\"file\":\"([^\"]*)\"/;
             link = html.match(regex)[1];
@@ -52,17 +53,22 @@
             result = result.replace(".3cda.pl", ".cda.pl");
 
             result = `https://${result}.mp4`;
-            console.log(link)
-            console.log(result)
-            console.log("https://vwaw620.cda.pl/W0qyYdxZ5004kQ1Vr_I2_Q/1588400037/hdf068543f0451d3705e824cbff571e468e942168dff47d05ff5aafb2023da116e.mp4")
-            return "test.mp4";
+            // console.log(link)
+            // console.log(result)
+            // console.log("https://vwaw620.cda.pl/W0qyYdxZ5004kQ1Vr_I2_Q/1588400037/hdf068543f0451d3705e824cbff571e468e942168dff47d05ff5aafb2023da116e.mp4")
+            return result;
             // }
         }
         window.onload = function () {
             console.log("HELLO");
             getVideo("5096971e1").then(function (link) {
-                console.log(link)
-                document.getElementById("video_src").setAttribute("src", link);
+                document.getElementById("vid").innerHTML = `
+        <video id="video" width="800px" controls preload="metadata">
+            <source id="video_src" src="${link}" type="video/mp4">
+            <track label="Polish" kind="subtitles" srclang="pl" src="/napisy.vtt" default>
+        </video>`
+                // console.log(link)
+                // document.getElementById("video_src").setAttribute("src", link);
             })
             // document.getElementById("video").requestFullscreen();
             console.log("BYE");
@@ -71,11 +77,10 @@
 </head>
 
 <body>
-    <video id="video" width="800px" controls preload="metadata">
-        <source id="video_src" src="" type="video/mp4">
-        <track label="Polish" kind="subtitles" srclang="pl" src="/napisy.vtt" default>
-    </video>
-    <div id="hidden" style="visibility: visible;">
+    <div id="vid">
+        
+    </div>
+    <div id="hidden" style="visibility: hidden;">
 
     </div>
 </body>
