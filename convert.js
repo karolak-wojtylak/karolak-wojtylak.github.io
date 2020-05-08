@@ -1,3 +1,4 @@
+var loader = {};
 async function getVideo(video_id) {
     link = `https://cors-anywhere.herokuapp.com/https://www.cda.pl/video/${video_id}?wersja=1080p`;
     response = await fetch(link, {
@@ -26,8 +27,9 @@ async function getVideo(video_id) {
     result = `https://${result}.mp4`;
     return result;
 }
-function load(id) {
-    window.onload = function () {
+loader.load = function load(id) {
+    return function () {
+        console.log("LOAD " + id)
         document.getElementById("vid").innerHTML = `
     <img src="poster.jpg"></img>`;
         getVideo(id).then(function (link) {
