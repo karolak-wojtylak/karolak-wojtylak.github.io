@@ -44,7 +44,7 @@ function load(id, dir="./") {
     }
 }
 
-function popup(id, dir="./") {
+function popup(id, dir, sub=[]) {
     console.log("LOAD " + id)
     if (document.getElementById("vid") == null) {
         document.getElementsByTagName("body")[0].innerHTML += `<div id="vid" class="window" onclick="document.getElementById('vid').remove()"></div>`
@@ -52,11 +52,15 @@ function popup(id, dir="./") {
     document.getElementById("vid").innerHTML = `
 <img src="${dir}poster.jpg"></img>`;
     getVideo(id).then(function (link) {
+        sub_html = "";
+        for (i in sub) {
+            sub_html += `<track label="${sub[i]}" kind="subtitles" srclang="${sub[i]}" src="${dir}${sub[i]}.vtt" default>`
+        }
         document.getElementById("vid").innerHTML = `
         <div class="content" onclick="document.getElementById('vid').remove()">
 <video id="video"class="video" controls preload="metadata">
     <source id="video_src" src="${link}" type="video/mp4">
-    <track label="English" kind="subtitles" srclang="en" src="${dir}en.vtt" default>
+    ${sub_html}
 </video> </div>`;
     // document.getElementById("video").onloadeddata = document.getElementById("video").requestFullscreen();
     })
