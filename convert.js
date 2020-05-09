@@ -5,10 +5,10 @@ async function getVideo(video_id) {
     });
 
     html = await response.text();
-    console.log(html);
+    // console.log(html);
     const regex = /\"file\":\"([^\"]*)\"/;
     link = html.match(regex)[1];
-    console.log(link)
+    // console.log(link)
     var removal = ["_XDDD", "_CDA", "_ADC", "_CXD", "_QWE", "_Q5"]
     link = unescape(link);
     for (x in removal) {
@@ -26,17 +26,38 @@ async function getVideo(video_id) {
     result = `https://${result}.mp4`;
     return result;
 }
-function load(id) {
+function load(id, dir="./") {
     return function () {
         console.log("LOAD " + id)
+        if (document.getElementById("vid") == null) {
+            document.getElementsByTagName("body").innerHTML += `<div id="vid" class="window"></div>`
+        }
         document.getElementById("vid").innerHTML = `
-    <img src="poster.jpg"></img>`;
+    <img src="${dir}poster.jpg"></img>`;
         getVideo(id).then(function (link) {
             document.getElementById("vid").innerHTML = `
     <video id="video" width="800px" controls preload="metadata">
         <source id="video_src" src="${link}" type="video/mp4">
-        <track label="English" kind="subtitles" srclang="en" src="en.vtt" default>
+        <track label="English" kind="subtitles" srclang="en" src="${dir}en.vtt" default>
     </video>`
         })
     }
+}
+
+function popup(id, dir="./") {
+    console.log("LOAD " + id)
+    if (document.getElementById("vid") == null) {
+        document.getElementsByTagName("body")[0].innerHTML += `<div id="vid" class="window"></div>`
+    }
+    document.getElementById("vid").innerHTML = `
+<img src="${dir}poster.jpg"></img>`;
+    getVideo(id).then(function (link) {
+        document.getElementById("vid").innerHTML = `
+        <div class="content" onclick="document.getElementById('vid').remove()">
+<video id="video"class="video" controls preload="metadata">
+    <source id="video_src" src="${link}" type="video/mp4">
+    <track label="English" kind="subtitles" srclang="en" src="${dir}en.vtt" default>
+</video> </div>`;
+    document.getElementById("video").requestFullscreen();
+    })
 }

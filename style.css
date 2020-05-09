@@ -1,0 +1,33 @@
+.window {
+	background: rgba(0,0,0,.9);
+	height: 100%;
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	z-index: 9;
+	text-align: center;
+	overflow: auto;
+}
+
+.window .video {
+    display: flex;
+    height: 100%;
+    flex-direction: column;
+    justify-content: space-between;
+    font-size: 20px;
+    padding: 20px 0;
+}
+
+.window > div {
+    background-color: #000;
+    box-shadow: 10px 10px 60px #555;
+    display: inline-block;
+    width: 95%;
+    height: 95%;
+    min-height: 100px;
+    vertical-align: middle;
+    position: relative;
+    border-radius: 8px;
+    padding: 3px 20px;
+}
