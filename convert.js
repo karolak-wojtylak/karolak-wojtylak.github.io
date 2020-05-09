@@ -58,6 +58,6 @@ function popup(id, dir="./") {
     <source id="video_src" src="${link}" type="video/mp4">
     <track label="English" kind="subtitles" srclang="en" src="${dir}en.vtt" default>
 </video> </div>`;
-    document.getElementById("video").onloadeddata = document.getElementById("video").requestFullscreen();
+    // document.getElementById("video").onloadeddata = document.getElementById("video").requestFullscreen();
     })
 }
