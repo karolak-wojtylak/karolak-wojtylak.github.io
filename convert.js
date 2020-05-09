@@ -47,7 +47,7 @@ function load(id, dir="./") {
 function popup(id, dir="./") {
     console.log("LOAD " + id)
     if (document.getElementById("vid") == null) {
-        document.getElementsByTagName("body")[0].innerHTML += `<div id="vid" class="window"></div>`
+        document.getElementsByTagName("body")[0].innerHTML += `<div id="vid" class="window" onclick="document.getElementById('vid').remove()"></div>`
     }
     document.getElementById("vid").innerHTML = `
 <img src="${dir}poster.jpg"></img>`;
@@ -58,6 +58,6 @@ function popup(id, dir="./") {
     <source id="video_src" src="${link}" type="video/mp4">
     <track label="English" kind="subtitles" srclang="en" src="${dir}en.vtt" default>
 </video> </div>`;
-    document.getElementById("video").requestFullscreen();
+    document.getElementById("video").onloadeddata = document.getElementById("video").requestFullscreen();
     })
 }
