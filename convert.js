@@ -56,7 +56,7 @@ function popup(id, dir, q, sub=[]) {
     }
     if (dir !== null) {
         document.getElementById("vid").innerHTML = `
-    <img src="${dir}poster.jpg"></img>`;
+    <img src="load.gif"></img>`;
     }
     getVideo(id, q).then(function (link) {
         sub_html = "";
