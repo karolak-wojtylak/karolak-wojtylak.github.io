@@ -49,7 +49,7 @@ async function getVideo(video_id, quality=null) {
     return result;
 }
 
-function popup(id, dir, q, sub=[]) {
+function popup(id, dir=null, q=null, sub=[]) {
     // console.log("LOAD " + id)
     if (document.getElementById("vid") == null) {
         document.getElementsByTagName("body")[0].innerHTML += `<div id="vid" class="window" onclick="document.getElementById('vid').remove()"></div>`
@@ -63,6 +63,27 @@ function popup(id, dir, q, sub=[]) {
             sub_html += `<track label="${sub[i]}" kind="subtitles" srclang="${sub[i]}" src="${dir}${sub[i]}" ${def}>`
             def = '';
         }
+        document.getElementById("vid").innerHTML = `
+<div class="content" onclick="document.getElementById('vid').remove()">
+    <video id="video"class="video" controls preload="metadata">
+        <source id="video_src" src="${link}" type="video/mp4">
+        ${sub_html}
+    </video>
+</div>`;
+    document.getElementById("video").onloadeddata = document.getElementById("video").requestFullscreen();
+    })
+}
+
+
+function popup2(id) {
+    // console.log("LOAD " + id)
+    if (document.getElementById("vid") == null) {
+        document.getElementsByTagName("body")[0].innerHTML += `<div id="vid" class="window" onclick="document.getElementById('vid').remove()"></div>`
+    }
+    document.getElementById("vid").innerHTML = `
+    <img src="/loader.gif"></img><img src="/loader.gif"></img>`;
+    getVideo(id, null).then(function (link) {
+        sub_html = "";
         document.getElementById("vid").innerHTML = `
 <div class="content" onclick="document.getElementById('vid').remove()">
     <video id="video"class="video" controls preload="metadata">
