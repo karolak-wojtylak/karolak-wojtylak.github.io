@@ -54,8 +54,8 @@ function popup(id, dir, q, sub=[]) {
     if (document.getElementById("vid") == null) {
         document.getElementsByTagName("body")[0].innerHTML += `<div id="vid" class="window" onclick="document.getElementById('vid').remove()"></div>`
     }
-        document.getElementById("vid").innerHTML = `
-    <img src="loader.gif"></img>`;
+    document.getElementById("vid").innerHTML = `
+<img src="/loader.gif"></img>`;
     getVideo(id, q).then(function (link) {
         sub_html = "";
         def = 'default';
