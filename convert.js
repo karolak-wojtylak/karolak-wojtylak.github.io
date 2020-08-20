@@ -49,7 +49,7 @@ async function getVideo(video_id, quality=null) {
     return result;
 }
 
-function popup(id, dir, q, sub=[]) {
+function popup(id, dir=null, q=null, sub=[]) {
     // console.log("LOAD " + id)
     if (document.getElementById("vid") == null) {
         document.getElementsByTagName("body")[0].innerHTML += `<div id="vid" class="window" onclick="document.getElementById('vid').remove()"></div>`
