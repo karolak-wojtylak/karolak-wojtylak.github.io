@@ -46,10 +46,13 @@
 {
    display:table-row;
    width:auto;
+   clear:both;
 }
 
 .divCell
 {
     float:left;/*fix for  buggy browsers*/
     display:table-column;
+    width:200px;
+    background-color: #ccc;
 }
