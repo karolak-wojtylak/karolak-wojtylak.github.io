@@ -12,7 +12,7 @@
 
 .window .video {
     display: flex;
-    height: 100%;
+    height: 90%;
     flex-direction: column;
     justify-content: space-between;
     font-size: 20px;

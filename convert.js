@@ -90,7 +90,9 @@ function popup2(id) {
         <source id="video_src" src="${link}" type="video/mp4">
         ${sub_html}
     </video>
+    ZAMKNIJ
 </div>`;
     document.getElementById("video").onloadeddata = document.getElementById("video").requestFullscreen();
     })
+    return false;
 }
