@@ -72,6 +72,7 @@ function popup(id, dir=null, q=null, sub=[]) {
 </div>`;
     document.getElementById("video").onloadeddata = document.getElementById("video").requestFullscreen();
     })
+    return false;
 }
 
 
