@@ -60,7 +60,7 @@ function popup(id, dir=null, q=null, sub=[]) {
         sub_html = "";
         def = 'default';
         for (i in sub) {
-            sub_html += `<track label="${sub[i]}" kind="subtitles" srclang="${sub[i]}" src="${dir}${sub[i]}" ${def}>`
+            sub_html += `<track label="${sub[i]}" kind="subtitles" srclang="${sub[i]}" src="${sub[i]}" ${def}>`
             def = '';
         }
         document.getElementById("vid").innerHTML = `
