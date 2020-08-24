@@ -97,3 +97,26 @@ function popup2(id) {
     })
     return false;
 }
+
+
+function load(id, dir=null, q=null, sub=[]) {
+    // console.log("LOAD " + id)
+    document.getElementsByTagName("body")[0].innerHTML = `<div id="vid" class="fullscreen">
+<img src="/loader.gif"></img></div>`;
+    getVideo(id, q).then(function (link) {
+        sub_html = "";
+        def = 'default';
+        for (i in sub) {
+            sub_html += `<track label="${sub[i]}" kind="subtitles" srclang="${sub[i]}" src="${sub[i]}" ${def}>`
+            def = '';
+        }
+        document.getElementsByTagName("body")[0].innerHTML = `
+        <div id="vid" class="fullscreen">
+    <video id="video"class="video" controls preload="metadata">
+        <source id="video_src" src="${link}" type="video/mp4">
+        ${sub_html}
+    </video></div>`;
+    document.getElementById("video").onloadeddata = document.getElementById("video").requestFullscreen();
+    })
+    return false;
+}
