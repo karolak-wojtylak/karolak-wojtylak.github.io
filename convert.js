@@ -120,3 +120,17 @@ function load(id, dir=null, q=null, sub=[]) {
     })
     return false;
 }
+
+
+function popup_cda(id) {
+    // console.log("LOAD " + id)
+    if (document.getElementById("vid") == null) {
+        document.getElementsByTagName("body")[0].innerHTML += `<div id="vid" class="window" onclick="document.getElementById('vid').remove()"></div>`
+    }
+        document.getElementById("vid").innerHTML = `
+<div class="content" onclick="document.getElementById('vid').remove()">
+<iframe src="https://ebd.cda.pl/620x395/${id}" width="620" height="395" style="border:none;" frameBorder="0" scrolling="no" allowfullscreen name="v2"></iframe>
+    ZAMKNIJ
+</div>`;
+    return false;
+}
