@@ -134,3 +134,50 @@ function popup_cda(id) {
 </div>`;
     return false;
 }
+
+
+
+function popup_ass(id) {
+    // console.log("LOAD " + id)
+    if (document.getElementById("vid") == null) {
+        document.getElementsByTagName("body")[0].innerHTML += `<div id="vid" class="window"><div class="close_btn" onclick="document.getElementById('vid').remove()">
+        ZAMKNIJ </div></div>`
+    }
+    document.getElementById("vid").innerHTML = `
+    <img src="/loader.gif"></img><img src="/loader.gif"></img> <div class="close_btn" onclick="document.getElementById('vid').remove()">
+    ZAMKNIJ </div>`;
+    getVideo(id, null).then(function (link) {
+        sub_html = "";
+        document.getElementById("vid").innerHTML = `
+<div class="content">
+    <div>
+    <video id="video" class="video video-js" controls preload="metadata">
+        <source id="video_src" src="${link}" type="video/mp4">
+        ${sub_html}
+    </video></div>
+    <div class="close_btn" onclick="document.getElementById('vid').remove()">
+    ZAMKNIJ </div>
+</div>`;
+    // document.getElementById("video").onloadeddata = document.getElementById("video").requestFullscreen();
+    var player = videojs('#video');
+    player.ready(function () {
+        // This would look more nice as a plugin but is's just as showcase of using with custom players
+        var video = this.tech_.el_;
+        window.SubtitlesOctopusOnLoad = function () {
+            var options = {
+                video: video,
+                subUrl: '/001.ass',
+                // fonts: ['/fonts/Arial.ttf', '/fonts/TimesNewRoman.ttf'],
+                //onReady: onReadyFunction,
+                debug: true,
+                workerUrl: 'js/subtitles-octopus-worker.js'
+            };
+            window.octopusInstance = new SubtitlesOctopus(options); // You can experiment in console
+        };
+        if (SubtitlesOctopus) {
+            SubtitlesOctopusOnLoad();
+        }
+    });
+    })
+    return false;
+}
