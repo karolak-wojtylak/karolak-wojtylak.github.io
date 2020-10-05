@@ -10,7 +10,12 @@ async function getQuality(video_id) {
     var myArray;
     q = 0;
     while ((myArray = regex.exec(html)) !== null) {
-        q = Math.max(q, myArray[0]);
+        document.getElementById("vid").innerHTML += `
+    <div class="close_btn" onclick="document.getElementById('vid').remove()">
+    ${JSON.stringify(myArray)} </div>`;
+    console.log(JSON.stringify(myArray));
+        q = Math.max(q, myArray[1]);
+        console.log(q);
     }
     //new String(html).matchAll(regex)
     // let matches = [...html.matchAll(regex)];
@@ -177,10 +182,10 @@ function popup_ass(id) {
             var options = {
                 video: video,
                 subUrl: '/001.ass',
-                // fonts: ['/fonts/Arial.ttf', '/fonts/TimesNewRoman.ttf'],
+                fonts: ['/fonts/arial.ttf'],
                 //onReady: onReadyFunction,
-                debug: true,
-                workerUrl: 'js/subtitles-octopus-worker.js'
+                debug: false,
+                workerUrl: '/js/subtitles-octopus-worker.js'
             };
             window.octopusInstance = new SubtitlesOctopus(options); // You can experiment in console
         };
@@ -189,5 +194,41 @@ function popup_ass(id) {
         }
     });
     })
+    return false;
+}
+
+
+function popup_ass2(id) {
+    // console.log("LOAD " + id)
+    if (document.getElementById("vid") == null) {
+        document.getElementsByTagName("body")[0].innerHTML += `<div id="vid" class="window"><div class="close_btn" onclick="document.getElementById('vid').remove()">
+        ZAMKNIJ </div></div>`
+    }
+    document.getElementById("vid").innerHTML = `
+    <img src="/loader.gif"></img><img src="/loader.gif"></img> <div class="close_btn" onclick="document.getElementById('vid').remove()">
+    ZAMKNIJ </div>`;
+    getVideo(id, null).then(function (link) {
+        sub_html = "";
+        document.getElementById("vid").innerHTML = `
+<div class="content">
+    <div>
+    <video id="video" class="video video-js" controls preload="metadata">
+        <source id="video_src" src="${link}" type="video/mp4">
+        ${sub_html}
+    </video></div>
+    <div class="close_btn" onclick="document.getElementById('vid').remove()">
+    ZAMKNIJ </div>
+</div>`;
+    // document.getElementById("video").onloadeddata = document.getElementById("video").requestFullscreen();
+    var player = videojs('#video');
+    player.ready(function () {
+        fetch('/001.ass')
+            .then(res => res.text())
+            .then((text) => {
+                //document.getElementById("vid").innerHTML += `<div class="close_btn">${text}</div>`;
+                const ass = new ASS(text, document.getElementById('video'));
+            });
+        });
+    });
     return false;
 }
