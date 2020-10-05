@@ -177,7 +177,7 @@ function popup_ass(id) {
             var options = {
                 video: video,
                 subUrl: '/001.ass',
-                fonts: ['/fonts/arial.ttf'],
+                // fonts: ['/fonts/arial.ttf'],
                 //onReady: onReadyFunction,
                 debug: false,
                 workerUrl: '/js/subtitles-octopus-worker.js'
@@ -207,7 +207,7 @@ function popup_ass2(id) {
         document.getElementById("vid").innerHTML = `
 <div class="content">
     <div>
-    <video id="video" class="video video-js" controls preload="metadata">
+    <video id="video" class="video" controls preload="metadata">
         <source id="video_src" src="${link}" type="video/mp4">
         ${sub_html}
     </video></div>
@@ -215,8 +215,8 @@ function popup_ass2(id) {
     ZAMKNIJ </div>
 </div>`;
     // document.getElementById("video").onloadeddata = document.getElementById("video").requestFullscreen();
-    var player = videojs('#video');
-    player.ready(function () {
+    // var player = videojs('#video');
+    // player.ready(function () {
         fetch('/001.ass')
             .then(res => res.text())
             .then((text) => {
@@ -224,6 +224,6 @@ function popup_ass2(id) {
                 const ass = new ASS(text, document.getElementById('video'));
             });
         });
-    });
+    // });
     return false;
 }
