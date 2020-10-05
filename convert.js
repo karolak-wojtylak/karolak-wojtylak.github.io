@@ -1,16 +1,25 @@
 async function getQuality(video_id) {
     console.log("quality");
     link = `https://cors-anywhere.herokuapp.com/https://www.cda.pl/video/${video_id}`;
+
     response = await fetch(link, {
         "mode": "cors"
     });
     html = await response.text();
-    const regex = /\?wersja=(\d+)p/g;
-    let matches = [...html.matchAll(regex)];
+    var regex = /\?wersja=(\d+)p/g;
+    var myArray;
     q = 0;
-    for (match of matches) {
-        q = Math.max(q, match[1]);
+    while ((myArray = regex.exec(html)) !== null) {
+        q = Math.max(q, myArray[0]);
     }
+    //new String(html).matchAll(regex)
+    // let matches = [...html.matchAll(regex)];
+    // let matches = Array.from(html.matchAll(regex), m => m[0]);
+    // document.getElementById("vid").innerHTML = `<div class="close_btn">Getting quality! (regex!)</div>`;
+    // q = 0;
+    // for (match of matches) {
+    //     q = Math.max(q, match[1]);
+    // }
     return q;
 }
 
@@ -46,6 +55,7 @@ async function getVideo(video_id, quality=null) {
     result = result.replace(".3cda.pl", ".cda.pl");
 
     result = `https://${result}.mp4`;
+
     return result;
 }
 
