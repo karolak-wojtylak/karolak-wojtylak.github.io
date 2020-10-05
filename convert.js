@@ -10,12 +10,7 @@ async function getQuality(video_id) {
     var myArray;
     q = 0;
     while ((myArray = regex.exec(html)) !== null) {
-        document.getElementById("vid").innerHTML += `
-    <div class="close_btn" onclick="document.getElementById('vid').remove()">
-    ${JSON.stringify(myArray)} </div>`;
-    console.log(JSON.stringify(myArray));
         q = Math.max(q, myArray[1]);
-        console.log(q);
     }
     //new String(html).matchAll(regex)
     // let matches = [...html.matchAll(regex)];
