@@ -147,7 +147,7 @@ function popup_cda(id) {
 
 
 
-function popup_ass(id) {
+function popup_ass(id, sub=[]) {
     // console.log("LOAD " + id)
     if (document.getElementById("vid") == null) {
         document.getElementsByTagName("body")[0].innerHTML += `<div id="vid" class="window"><div class="close_btn" onclick="document.getElementById('vid').remove()">
@@ -170,13 +170,15 @@ function popup_ass(id) {
 </div>`;
     // document.getElementById("video").onloadeddata = document.getElementById("video").requestFullscreen();
     var player = videojs('#video');
+    subtitles = null
+    if (sub.length > 0) subtitles = sub[0]
     player.ready(function () {
         // This would look more nice as a plugin but is's just as showcase of using with custom players
         var video = this.tech_.el_;
         window.SubtitlesOctopusOnLoad = function () {
             var options = {
                 video: video,
-                subUrl: '/001.ass',
+                subUrl: subtitles,
                 // fonts: ['/fonts/arial.ttf'],
                 //onReady: onReadyFunction,
                 debug: false,

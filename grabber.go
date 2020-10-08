@@ -165,7 +165,7 @@ func main() {
 
         var links strings.Builder
         for _, link := range folder.Links {
-            fmt.Fprintf(&links, "<a onclick=\"return popup(`%s`, null, null, []);\">%s</a> / <a onclick=\"return popup_cda(`%s`);\">CDA</a><BR>\n", html.EscapeString(link.Id), html.EscapeString(link.Name), html.EscapeString(link.Id));
+            fmt.Fprintf(&links, "<a onclick=\"return popup(`%s`, null, null, []);\">%s</a> / <a onclick=\"return popup_cda(`%s`);\">CDA</a> / <a onclick=\"return popup_ass(`%s`);\">player.js</a><BR>\n", html.EscapeString(link.Id), html.EscapeString(link.Name), html.EscapeString(link.Id), html.EscapeString(link.Id));
         }
 
         pattern = strings.ReplaceAll(pattern, "{%LINKS%}", links.String());
