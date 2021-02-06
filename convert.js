@@ -1,14 +1,19 @@
 //var corsWorkaround = 'https://cors-anywhere.herokuapp.com/'
-var corsWorkaround = 'https://cors-proxy.htmldriven.com/?url='
+var corsWorkaround = 'https://wojtynator.herokuapp.com/'
+
+async function getCors(link) {
+    response = await fetch(link, {
+        "mode": "cors",
+        "Access-Control-Allow-Origin": "https://www.cda.pl"
+    });
+    return await response.text();
+}
 
 async function getQuality(video_id) {
     console.log("quality");
     link = `${corsWorkaround}https://www.cda.pl/video/${video_id}`;
 
-    response = await fetch(link, {
-        "mode": "cors"
-    });
-    html = await response.text();
+    html = await getCors(link);
     var regex = /\?wersja=(\d+)p/g;
     var myArray;
     q = 0;
@@ -34,12 +39,9 @@ async function getVideo(video_id, quality=null) {
     if (quality == 0) {
         link = `${corsWorkaround}https://www.cda.pl/video/${video_id}`;
     }
-    response = await fetch(link, {
-        "mode": "cors"
-    });
 
-    html = await response.text();
-    // console.log(html);
+    html = await getCors(link);
+    console.log(html);
     const regex = /\"file\":\"([^\"]*)\"/;
     link = html.match(regex)[1];
     // console.log(link)
