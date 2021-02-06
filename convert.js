@@ -1,9 +1,9 @@
-//var corsWorkaround = 'https://cors-anywhere.herokuapp.com'
+//var corsWorkaround = 'https://cors-anywhere.herokuapp.com/'
 var corsWorkaround = 'https://cors-proxy.htmldriven.com/?url='
 
 async function getQuality(video_id) {
     console.log("quality");
-    link = `${corsWorkaround}/https://www.cda.pl/video/${video_id}`;
+    link = `${corsWorkaround}https://www.cda.pl/video/${video_id}`;
 
     response = await fetch(link, {
         "mode": "cors"
@@ -30,9 +30,9 @@ async function getVideo(video_id, quality=null) {
     if (quality == null) {
         quality = await getQuality(video_id);
     }
-    link = `${corsWorkaround}/https://www.cda.pl/video/${video_id}?wersja=${quality}p`;
+    link = `${corsWorkaround}https://www.cda.pl/video/${video_id}?wersja=${quality}p`;
     if (quality == 0) {
-        link = `${corsWorkaround}/https://www.cda.pl/video/${video_id}`;
+        link = `${corsWorkaround}https://www.cda.pl/video/${video_id}`;
     }
     response = await fetch(link, {
         "mode": "cors"
