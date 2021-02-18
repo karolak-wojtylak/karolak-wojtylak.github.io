@@ -1,0 +1,1 @@
+ffmpeg -i nocny_nalot_PL.mkv -vf scale=-1:720 -c:v libx264 -crf 0 -preset veryslow -c:a copy nocny_nalot_PL_720p.mkv
